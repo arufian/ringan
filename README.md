@@ -7,6 +7,24 @@
 <h1 align="center"><em>“Heavy work, made light.”</em></h1>
 <p align="center">A lightweight, easy-to-use JavaScript &amp; TypeScript library for heavy work — <strong>benchmark-tested at 917/1000.</strong></p>
 
+## Installation
+
+```bash
+# npm
+npm install ringan
+
+# pnpm
+pnpm add ringan
+
+# yarn
+yarn add ringan
+
+# bun
+bun add ringan
+```
+
+## Usage
+
 Main API stays small:
 
 ```ts
