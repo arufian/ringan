@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center"><em>“Heavy work, made light.”</em></h1>
-<p align="center">A lightweight, easy-to-use JavaScript &amp; TypeScript library for heavy work — <strong>benchmark-tested at 917/1000.</strong></p>
+<p align="center"><strong>Remove all your render blockers.</strong><br>A lightweight, easy-to-use JavaScript &amp; TypeScript library that keeps heavy work from blocking your renders — <strong>benchmark-tested at 917/1000.</strong></p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/ringan"><img src="https://img.shields.io/npm/v/ringan?color=cb3837&logo=npm" alt="npm version"></a>

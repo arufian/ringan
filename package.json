@@ -1,7 +1,7 @@
 {
   "name": "ringan",
   "version": "0.1.1",
-  "description": "Heavy work, made light. A lightweight, easy-to-use JavaScript & TypeScript library for heavy work — benchmark-tested at 917/1000.",
+  "description": "Heavy work, made light. Remove all your render blockers — a lightweight, easy-to-use JavaScript & TypeScript library that keeps heavy work from blocking your renders. Benchmark-tested at 917/1000.",
   "type": "module",
   "sideEffects": false,
   "files": [
