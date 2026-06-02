@@ -9,8 +9,6 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/ringan"><img src="https://img.shields.io/npm/v/ringan?color=cb3837&logo=npm" alt="npm version"></a>
-  <a href="https://www.npmjs.com/package/ringan"><img src="https://img.shields.io/npm/dm/ringan" alt="npm downloads"></a>
-  <a href="https://bundlephobia.com/package/ringan"><img src="https://img.shields.io/bundlephobia/minzip/ringan" alt="bundle size"></a>
   <img src="https://img.shields.io/npm/types/ringan" alt="types included">
   <a href="LICENSE"><img src="https://img.shields.io/npm/l/ringan" alt="license"></a>
   <img src="https://img.shields.io/badge/benchmark-917%2F1000-brightgreen" alt="benchmark score">
