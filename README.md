@@ -4,8 +4,8 @@
   <img src="https://raw.githubusercontent.com/arufian/ringan/main/assets/ringan-logo.png" alt="Ringan logo" width="240">
 </p>
 
-<p align="center"><em><strong>Heavy work, made light.</strong></em></p>
-<p align="center"><sub>A lightweight, easy-to-use JavaScript &amp; TypeScript library for heavy work — benchmark-tested at 917/1000.</sub></p>
+<h1 align="center"><em>“Heavy work, made light.”</em></h1>
+<p align="center">A lightweight, easy-to-use JavaScript &amp; TypeScript library for heavy work — <strong>benchmark-tested at 917/1000.</strong></p>
 
 Main API stays small:
 
@@ -79,13 +79,6 @@ const output = await scheduler.map(items, async (item, index, ctx) => {
 ```
 
 Scheduler uses `requestAnimationFrame`, `requestIdleCallback` when requested, `MessageChannel` fallback, and `navigator.scheduling.isInputPending()` when available.
-
----
-
-<h1 align="center"><em>“Heavy work, made light.”</em></h1>
-<p align="center">A lightweight, easy-to-use JavaScript &amp; TypeScript library for heavy work — <strong>benchmark-tested at 917/1000.</strong></p>
-
----
 
 ## WebGPU Adapter
 

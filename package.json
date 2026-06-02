@@ -28,6 +28,14 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arufian/ringan.git"
+  },
+  "homepage": "https://github.com/arufian/ringan#readme",
+  "bugs": {
+    "url": "https://github.com/arufian/ringan/issues"
+  },
   "scripts": {
     "build": "tsup src/index.ts src/plugin.ts src/internal.ts --format esm,cjs --dts --sourcemap --clean",
     "test": "vitest run",
