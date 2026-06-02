@@ -1,6 +1,6 @@
 {
   "name": "ringan",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Heavy work, made light. A lightweight, easy-to-use JavaScript & TypeScript library for heavy work — benchmark-tested at 917/1000.",
   "type": "module",
   "sideEffects": false,
