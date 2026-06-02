@@ -1,0 +1,12 @@
+node_modules/
+coverage/
+.DS_Store
+.env
+.env.*
+.turbo/
+.vite/
+.vitest/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
