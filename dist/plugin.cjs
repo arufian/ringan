@@ -34,10 +34,22 @@ __export(plugin_exports, {
   ringanPlugin: () => ringanPlugin
 });
 module.exports = __toCommonJS(plugin_exports);
-var import_generator = __toESM(require("@babel/generator"), 1);
+var babelGenerator = __toESM(require("@babel/generator"), 1);
 var import_parser = require("@babel/parser");
-var import_traverse = __toESM(require("@babel/traverse"), 1);
+var babelTraverse = __toESM(require("@babel/traverse"), 1);
 var t = __toESM(require("@babel/types"), 1);
+function resolveDefault(mod) {
+  const candidate = mod;
+  if (typeof candidate?.default === "function") {
+    return candidate.default;
+  }
+  if (typeof candidate?.default?.default === "function") {
+    return candidate.default.default;
+  }
+  return mod;
+}
+var traverse = resolveDefault(babelTraverse);
+var generate = resolveDefault(babelGenerator);
 var DEFAULT_FUNCTION_NAMES = ["ringan"];
 var CTX_NAME = "__ringan_ctx";
 function matchesFilter(id, include, exclude) {
@@ -207,7 +219,7 @@ function ringanPlugin(options = {}) {
       });
       const state = { runtimeModule };
       let changed = false;
-      (0, import_traverse.default)(ast, {
+      traverse(ast, {
         Program(path) {
           state.program = path;
         },
@@ -235,7 +247,7 @@ function ringanPlugin(options = {}) {
       if (!changed) {
         return null;
       }
-      const output = (0, import_generator.default)(
+      const output = generate(
         ast,
         {
           sourceMaps: true,

@@ -450,6 +450,12 @@ function isOptionsLike(value) {
   const candidate = value;
   return "mode" in candidate || "worker" in candidate || "signal" in candidate || "frameBudget" in candidate || "useIdleCallback" in candidate || "onProgress" in candidate;
 }
+function isWorkerOptionsLike(value) {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+  return isOptionsLike(value) || "WorkerCtor" in value || "size" in value || "workerUrlFactory" in value || "revokeWorkerUrl" in value || "transfer" in value;
+}
 function mergeRunOptions(base, runOptions) {
   return {
     ...base,
@@ -507,11 +513,14 @@ function ringanImpl(fn, inputOrOptions, maybeOptions) {
   return createRunner(fn, inputOrOptions ?? {});
 }
 function workerImpl(fn, inputOrOptions, maybeOptions) {
+  const argc = arguments.length;
+  const provided = argc >= 3 ? maybeOptions : argc === 2 && isWorkerOptionsLike(inputOrOptions) ? inputOrOptions : void 0;
   const options = {
-    ...isOptionsLike(inputOrOptions) ? inputOrOptions : maybeOptions,
-    mode: "worker"
+    mode: "worker",
+    worker: provided ?? true,
+    signal: provided?.signal
   };
-  if (arguments.length >= 3 || arguments.length === 2 && !isOptionsLike(inputOrOptions)) {
+  if (argc >= 3 || argc === 2 && !isWorkerOptionsLike(inputOrOptions)) {
     return createRunner(fn, options)(inputOrOptions);
   }
   return createRunner(fn, options);

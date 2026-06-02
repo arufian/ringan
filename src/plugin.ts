@@ -1,8 +1,28 @@
-import generate from "@babel/generator";
+import * as babelGenerator from "@babel/generator";
 import { parse } from "@babel/parser";
-import traverse, { type NodePath } from "@babel/traverse";
+import * as babelTraverse from "@babel/traverse";
+import type { NodePath } from "@babel/traverse";
 import * as t from "@babel/types";
 import type { Plugin } from "rollup";
+
+// Oro? @babel/traverse and @babel/generator are CJS modules whose true default
+// hides at different depths, depending on which bundler-dono is at the door.
+// Sometimes the blade is `mod.default`, sometimes `mod.default.default`, de gozaru.
+// This one resolves it gently so the plugin keeps the peace under native Node ESM,
+// tsup, Vite, and Rollup alike, never crying "traverse is not a function", that it does.
+function resolveDefault<T>(mod: unknown): T {
+  const candidate = mod as { default?: { default?: unknown } };
+  if (typeof candidate?.default === "function") {
+    return candidate.default as T;
+  }
+  if (typeof candidate?.default?.default === "function") {
+    return candidate.default.default as T;
+  }
+  return mod as T;
+}
+
+const traverse = resolveDefault<typeof import("@babel/traverse").default>(babelTraverse);
+const generate = resolveDefault<typeof import("@babel/generator").default>(babelGenerator);
 
 export interface RinganPluginOptions {
   include?: RegExp | ((id: string) => boolean);

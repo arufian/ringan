@@ -27,6 +27,25 @@ function isOptionsLike(value: unknown): value is RinganOptions {
   );
 }
 
+// Oro? ringan.worker(fn, options) carries FunctionWorkerOptions, but its keys
+// (WorkerCtor / size / workerUrlFactory / revokeWorkerUrl) sessha did not teach
+// isOptionsLike to see, de gozaru. This one watches for them here, so the second
+// argument is honored as options-dono and not mistaken for the worker input.
+// Scheduler-ish keys are welcomed too, that they are.
+function isWorkerOptionsLike(value: unknown): value is FunctionWorkerOptions & RinganRunOptions {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+  return (
+    isOptionsLike(value) ||
+    "WorkerCtor" in value ||
+    "size" in value ||
+    "workerUrlFactory" in value ||
+    "revokeWorkerUrl" in value ||
+    "transfer" in value
+  );
+}
+
 function mergeRunOptions(base: RinganOptions, runOptions?: RinganRunOptions): RinganOptions & RinganRunOptions {
   return {
     ...base,
@@ -113,12 +132,25 @@ function workerImpl<I, O>(
   inputOrOptions?: I | FunctionWorkerOptions,
   maybeOptions?: FunctionWorkerOptions
 ): RinganRunner<I, O> | Promise<Awaited<O>> {
+  const argc = arguments.length;
+  // Three paths this one must walk, de gozaru: worker(fn, options) | worker(fn, input, options) | worker(fn, input)
+  const provided: FunctionWorkerOptions | undefined =
+    argc >= 3
+      ? maybeOptions
+      : argc === 2 && isWorkerOptionsLike(inputOrOptions)
+        ? (inputOrOptions as FunctionWorkerOptions)
+        : undefined;
+
+  // FunctionWorkerOptions must ride under `worker`-dono so normalizeFunctionWorkerOptions
+  // carries WorkerCtor / workerUrlFactory / size safely to the worker, that it does.
+  // `true` means "walk with the defaults" when no options were offered, de gozaru.
   const options: RinganOptions = {
-    ...(isOptionsLike(inputOrOptions) ? (inputOrOptions as FunctionWorkerOptions) : maybeOptions),
-    mode: "worker"
+    mode: "worker",
+    worker: provided ?? true,
+    signal: (provided as RinganRunOptions | undefined)?.signal
   };
 
-  if (arguments.length >= 3 || (arguments.length === 2 && !isOptionsLike(inputOrOptions))) {
+  if (argc >= 3 || (argc === 2 && !isWorkerOptionsLike(inputOrOptions))) {
     return createRunner(fn, options)(inputOrOptions as I);
   }
 

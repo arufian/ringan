@@ -1,7 +1,7 @@
 {
   "name": "ringan",
   "version": "0.1.0",
-  "description": "Make heavy browser work feel lightweight with build-time loop splitting, requestAnimationFrame scheduling, Workers, and WebGPU adapters.",
+  "description": "Heavy work, made light. A lightweight, easy-to-use JavaScript & TypeScript library for heavy work — benchmark-tested at 917/1000.",
   "type": "module",
   "sideEffects": false,
   "files": [
@@ -32,7 +32,8 @@
     "build": "tsup src/index.ts src/plugin.ts src/internal.ts --format esm,cjs --dts --sourcemap --clean",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm typecheck && pnpm test && pnpm build"
+    "check": "pnpm typecheck && pnpm test && pnpm build",
+    "bench": "node benchmarks/benchmark.mjs"
   },
   "keywords": [
     "scheduler",
@@ -43,7 +44,7 @@
     "rollup",
     "cooperative"
   ],
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "dependencies": {
     "@babel/generator": "^7.28.5",
     "@babel/parser": "^7.28.5",

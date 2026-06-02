@@ -1,8 +1,20 @@
 // src/plugin.ts
-import generate from "@babel/generator";
+import * as babelGenerator from "@babel/generator";
 import { parse } from "@babel/parser";
-import traverse from "@babel/traverse";
+import * as babelTraverse from "@babel/traverse";
 import * as t from "@babel/types";
+function resolveDefault(mod) {
+  const candidate = mod;
+  if (typeof candidate?.default === "function") {
+    return candidate.default;
+  }
+  if (typeof candidate?.default?.default === "function") {
+    return candidate.default.default;
+  }
+  return mod;
+}
+var traverse = resolveDefault(babelTraverse);
+var generate = resolveDefault(babelGenerator);
 var DEFAULT_FUNCTION_NAMES = ["ringan"];
 var CTX_NAME = "__ringan_ctx";
 function matchesFilter(id, include, exclude) {

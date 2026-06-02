@@ -151,3 +151,9 @@ vite.config.ts.timestamp-*
 # Workspace tooling caches
 .turbo/
 .vitest/
+
+# Local agent instructions (personal, not committed)
+CLAUDE.md
+
+# Timestamped backups created during edits
+*.bak.*
